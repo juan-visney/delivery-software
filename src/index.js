@@ -46,7 +46,7 @@ app.use((req, res, next) => {
 })
 
 //routes
-//app.use(require('./routes'))
+app.use(require('./routes/public'))
 
 //public
 app.use(express.static(path.join(__dirname, '/public')))
