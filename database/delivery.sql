@@ -2,21 +2,19 @@ create database delivery;
 
 use delivery;
 
---tabla administrador
 create table admin(
     idAdmin INT(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     user VARCHAR(10) NOT NULL,
-    pass VARCHAR(20) NOT NULL,
+    pass VARCHAR(100) NOT NULL,
     fullname VARCHAR(50) NOT NULL,
     mail VARCHAR(50) NOT NULL
 );
 ALTER TABLE admin AUTO_INCREMENT = 1000;
 
---tabla cliente
 create table client(
     idClient INT(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     user VARCHAR(10) NOT NULL,
-    pass VARCHAR(20) NOT NULL,
+    pass VARCHAR(100) NOT NULL,
     fullname VARCHAR(50) NOT NULL,
     address VARCHAR(50) NOT NULL,
     mail VARCHAR(50) NOT NULL,
@@ -24,11 +22,10 @@ create table client(
 );
 ALTER TABLE client AUTO_INCREMENT = 10000;
 
---tabla business
 create table business(
     idBusiness INT(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     user VARCHAR(10) NOT NULL,
-    pass VARCHAR(20) NOT NULL,
+    pass VARCHAR(100) NOT NULL,
     name VARCHAR(50) NOT NULL,
     owner VARCHAR(50) NOT NULL,
     address VARCHAR(50) NOT NULL,
@@ -37,18 +34,16 @@ create table business(
 );
 ALTER TABLE business AUTO_INCREMENT = 20000;
 
---tabla delivery
 create table deliver(
     idDeliver INT(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     user VARCHAR(10) NOT NULL,
-    pass VARCHAR(20) NOT NULL,
+    pass VARCHAR(100) NOT NULL,
     fullname VARCHAR(50) NOT NULL,
     phone INT(10) NOT NULL,
     status VARCHAR(1) NOT NULL
 );
 ALTER TABLE deliver AUTO_INCREMENT = 30000;
 
---tabla product
 create table product(
     idProduct INT(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     idBusiness INT(10) NOT NULL,
@@ -59,7 +54,6 @@ create table product(
 );
 ALTER TABLE product AUTO_INCREMENT = 100000;
 
---tabla sale
 create table sale(
     idSale INT(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     idClient INT(10) NOT NULL,
@@ -69,7 +63,6 @@ create table sale(
 );
 ALTER TABLE sale AUTO_INCREMENT = 200000;
 
---tabla detail
 create table detail(
     idDetail INT(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     idProduct INT(10) NOT NULL,
@@ -80,7 +73,6 @@ create table detail(
 );
 ALTER TABLE detail AUTO_INCREMENT = 1000000;
 
---tabla order
 create table orden(
     idOrden INT(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     idDeliver INT(10) NOT NULL,
@@ -91,7 +83,6 @@ create table orden(
 );
 ALTER TABLE orden AUTO_INCREMENT = 2000000;
 
---tabla businessRequest
 create table request(
     idRequest INT(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,

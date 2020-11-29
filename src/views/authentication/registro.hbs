@@ -1,0 +1,94 @@
+
+<div class="container">
+    <div class="row py-5 mt-4 align-items-center">
+        <!-- For Demo Purpose -->
+        <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
+            <img src="./img/delivery.jpg" alt="" class="img-fluid mb-3 d-none d-md-block">
+            <span>Photo by <a href="https://unsplash.com/@brettjordan?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Brett Jordan</a> on <a href="https://unsplash.com/s/photos/delivery?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
+            <h1>Crea una cuenta</h1>
+            <p class="font-italic text-muted mb-0">Create a minimal registeration page using Bootstrap 4 HTML form elements.</p>
+            <p class="font-italic text-muted">Snippet By <a href="https://bootstrapious.com" class="text-muted">
+                <u>Bootstrapious</u></a>
+            </p>
+        </div>
+
+        <!-- Registeration Form -->
+        <div class="col-md-7 col-lg-6 ml-auto">
+            <form action="/registro" method="POST">
+                <div class="row">
+
+                    <!-- First Name -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-user text-muted"></i>
+                            </span>
+                        </div>
+                        <input id="fullname" type="text" name="fullname" placeholder="Nombre completo" class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    <!-- Email Address -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-envelope text-muted"></i>
+                            </span>
+                        </div>
+                        <input id="mail" type="email" name="mail" placeholder="Correo Electronico" class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    <!-- user -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-user text-muted"></i>
+                            </span>
+                        </div>
+                        <input id="user" type="text" name="user" placeholder="Nombre de Usuario" class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    <!-- Password -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-lock text-muted"></i>
+                            </span>
+                        </div>
+                        <input id="pass" type="password" name="pass" placeholder="Contraseña" class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-group col-lg-12 mx-auto mb-0">
+                        <button class="btn btn-primary btn-block py-2">
+                            <span class="font-weight-bold">Crear cuenta</span>
+                        </button>
+                    </div>
+
+                    <!-- Divider Text -->
+                    <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
+                        <div class="border-bottom w-100 ml-5"></div>
+                        <span class="px-2 small text-muted font-weight-bold text-muted">O</span>
+                        <div class="border-bottom w-100 mr-5"></div>
+                    </div>
+
+                    <!-- Social Login -->
+                    <div class="form-group col-lg-12 mx-auto">
+                        <a href="#" class="btn btn-primary btn-block py-2 btn-facebook">
+                            <i class="fa fa-facebook-f mr-2"></i>
+                            <span class="font-weight-bold">Continuar con Facebook</span>
+                        </a>
+                        <a href="#" class="btn btn-primary btn-block py-2 btn-twitter">
+                            <i class="fa fa-twitter mr-2"></i>
+                            <span class="font-weight-bold">Continuar con Twitter</span>
+                        </a>
+                    </div>
+
+                    <!-- Already Registered -->
+                    <div class="text-center w-100">
+                        <p class="text-muted font-weight-bold">Ya registrado? <a href="/login" method="GET" class="text-primary ml-2">Ingresar</a></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

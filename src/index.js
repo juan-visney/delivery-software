@@ -10,6 +10,7 @@ const passport = require('passport')
 
 //init
 const app = express()
+require('./config/passport')
 
 //settings
 app.set('port', process.env.PORT || 3000)
@@ -19,7 +20,7 @@ app.engine('.hbs', handlebars({
     layoutsDir: path.join(app.get('views'), 'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),
     extname: '.hbs',
-    helpers: require('./lib/handlebars')
+    helpers: require('./config/handlebars')
 }))
 app.set('view engine','.hbs')
 
@@ -47,9 +48,10 @@ app.use((req, res, next) => {
 
 //routes
 app.use(require('./routes/public'))
+app.use(require('./routes/authentication'))
 
 //public
-app.use(express.static(path.join(__dirname, '/public')))
+app.use(express.static(path.join(__dirname, 'public')))
 
 //starting server
 app.listen(app.get('port'), () => {
