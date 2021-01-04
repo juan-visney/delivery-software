@@ -23,12 +23,37 @@
           <li class="nav-item">
             <a href="/salir" class="nav-link">Salir</a>
           </li>
+          <li class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Registro
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="/registroAdmin">Administrador</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/registroBusiness">Empresa</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/registroDeliver">Delivery</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/registroClient">Cliente</a>
+            </div>
+          </li>
         {{else}}
           <li class="nav-item">
             <a href="/login" class="nav-link">Ingresar</a>
           </li>
-          <li class="nav-item">
-            <a href="/registro" class="nav-link">Registrar</a>
+          <li class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Registro
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="/registroAdmin">Administrador</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/registroBusiness">Empresa</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/registroDeliver">Delivery</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/registroClient">Cliente</a>
+            </div>
           </li>
         {{/if}}
       </ul>

@@ -5,12 +5,14 @@ const path = require('path')
 const flash = require('connect-flash')
 const session = require('express-session')
 const MySQLStore = require('express-mysql-session')
+const bodyParser =require('body-parser');
 const {database} = require('./keys')
 const passport = require('passport')
 
 //init
 const app = express()
 require('./config/passport')
+//require('./config/passportClient')
 
 //settings
 app.set('port', process.env.PORT || 3000)
@@ -35,6 +37,8 @@ app.use(flash())
 app.use(morgan('dev'))
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
+app.use(bodyParser.urlencoded({extended:false}));
+app.set(bodyParser.json());
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -49,6 +53,7 @@ app.use((req, res, next) => {
 //routes
 app.use(require('./routes/public'))
 app.use(require('./routes/authentication'))
+app.use('/empresa', require('./routes/business'))
 
 //public
 app.use(express.static(path.join(__dirname, 'public')))

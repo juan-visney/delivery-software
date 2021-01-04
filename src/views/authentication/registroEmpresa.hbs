@@ -11,31 +11,18 @@
 
         <!-- Registeration Form -->
         <div class="col-md-7 col-lg-6 ml-auto">
-            <form action="/registroAdmin" method="POST">
+            <form action="/registroBusiness" method="POST">
                 <div class="row">
-                    <!--  Rol  -->
-                    <div class="input-group col-lg-12 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fas fa-user-tag text-muted"></i>
-                            </span>
-                        </div>
-                        <select name="rol" class="form-control bg-white border-left-0 border-md form-select" aria-label=".form-select-sm example">
-                            <option selected>Seleccione un rol</option>
-                            <option value="Administrador">Administrador</option>
-                            <option value="Cliente">Cliente</option>
-                            <option value="Empresa">Empresa</option>
-                            <option value="Delivery">Delivery</option>
-                        </select>
-                    </div>
+                    
+                    <input type="hidden" name="rol" value="empresa">
                     <!-- Name -->
                     <div class="input-group col-lg-12 mb-4">
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-user text-muted"></i>
+                                <i class="fas fa-laptop-house"></i>
                             </span>
                         </div>
-                        <input required id="name" type="text" name="name" placeholder="Nombre completo" class="form-control bg-white border-left-0 border-md">
+                        <input required id="name" type="text" name="name" placeholder="Nombre Empresa" class="form-control bg-white border-left-0 border-md">
                     </div>
 
                     <!-- Email Address -->
@@ -47,7 +34,39 @@
                         </div>
                         <input required id="mail" type="email" name="mail" placeholder="Correo Electronico" class="form-control bg-white border-left-0 border-md">
                     </div>
-                    
+
+                    <!-- Owner -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fas fa-user-tie"></i>
+                            </span>
+                        </div>
+                        <input required id="owner" type="text" name="owner" placeholder="Nombre propietario" class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    <!-- phone -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fas fa-mobile-alt"></i>
+                            </span>
+                        </div>
+                        <input required id="phone" type="number" name="phone" placeholder="Numero Celular" class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    <!-- photo -->
+                    <form action="/registroBusiness" method="post" enctype="multipart/form-data">
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fas fa-camera-retro"></i>
+                                <label for="photo" class="mx-2">Fotografia:</label>
+                                <input type="file" id="photo" name="photo">
+                            </span>
+                        </div>
+                    </div>
+                    </form>
                     <!-- user -->
                     <div class="input-group col-lg-12 mb-4">
                         <div class="input-group-prepend">
@@ -68,41 +87,9 @@
                         <input required id="pass" type="password" name="pass" placeholder="Contraseña" class="form-control bg-white border-left-0 border-md">
                     </div>
 
-                    <!-- Address -->
-                    <div class="input-group col-lg-12 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="far fa-address-card"></i>
-                            </span>
-                        </div>
-                        <input required id="address" type="text" name="address" placeholder="Domicilio" class="form-control bg-white border-left-0 border-md">
-                    </div>
-
-                    <!-- phone -->
-                    <div class="input-group col-lg-12 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fas fa-phone-square-alt"></i>
-                            </span>
-                        </div>
-                        <input required id="phone" type="number" name="phone" placeholder="Celular" class="form-control bg-white border-left-0 border-md">
-                    </div>
-
-                    <!-- phoyo -->
-                    <div class="input-group col-lg-12 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fas fa-camera-retro"></i>
-                                
-                        <label for="photo" class="mx-2">Fotografia:</label>
-                        <input type="file" id="photo" name="photo">
-                            </span>
-                        </div>
-                    </div>
-
                     <!-- Submit Button -->
                     <div class="form-group col-lg-12 mx-auto mb-0">
-                        <button class="btn btn-primary btn-block py-2">
+                        <button type="submit" class="btn btn-primary btn-block py-2" >
                             <span class="font-weight-bold">Agregar</span>
                         </button>
                     </div>
