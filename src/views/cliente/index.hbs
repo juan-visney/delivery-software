@@ -1,0 +1,136 @@
+<div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1>Carrito de compras</h1>
+			</div>
+			<div class="modal-body">
+                <div class="modal-body col-6 text-center">
+                    <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {{#each detalles}}     
+                                <tr>
+                                    <td> {{this.producto}} </td>
+                                    <td> {{this.lot}} </td>
+                                    <td> {{this.precio}} </td>
+                                    <td>
+                                        <form action="/cliente/quitarDetalle/{{this.idDetail}}" method="post">
+                                            <button type="submit" class="btn btn-danger">Quitar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                        {{/each}}
+                                <tr>
+                                    <td colspan="2">Total: </td>
+                                    <td>
+                                        {{total}}
+                                    </td>
+                                    <td>
+                                        <form action="/cliente/compra/" method="post">
+                                            <input type="hidden" name="idSale" value="{{idSale}}">
+                                            <input type="hidden" name="cost" value="{{total}}">
+                                            <button type="submit" class="btn btn-primary">Comprar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                    </tbody>
+                    </table>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+    <div class="col-3 fixed-top">
+        <a href="#miModal" class="btn " data-toggle="modal" data-target="#miModal">
+            <img src="/img/cart.png" alt="" width="50px" height="50px">
+        </a>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+        <h1 class="titulo text-center sf-1">Menu de comidas</h1>
+    </div>
+</div>
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">  
+    {{#each productos}}
+        <div class="card-group">
+            <div class="card mb-3 mx-3 py-2 px-2 tarjeta" style="max-width: 540px;">
+                <div class="row mg-0">
+                    <div class="col md-12">
+                        <h5 class="card-title titulo-comida fs-1">{{this.name}}</h5>
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-md-2">
+                    <div class="col-md-6">
+                        <img src="/fotos/comida/{{this.photo}}" alt="imagen" class="rounded " width="150px" height="150px">
+                    </div>
+                    <div class="row ">
+                        <div class="col mx-2">
+                            <p class="card-title detalles">Precio: </p>
+                            <p class="card-text datos">{{this.price}} Bs.</p>
+                        </div>
+                        <div class="col mx-2">
+                            <p class="card-title detalles">Cantidad: </p>
+                            <p class="card-text datos">{{this.quantity}} Unidades</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-0">
+                    <div class="col-10 mx-2">
+                        <a href="/cliente/buscar/{{this.empresa}}"><h3 class="carc-text text-primary-bold">{{this.empresa}}</h3></a>
+                    </div>
+                </div>
+                <div class="row g-0">
+                    <div class="col-10 md-10">
+                        <p>
+                            <a class="btn btn-primary" data-bs-toggle="collapse" href="#descripcion{{this.idProduct}}" role="button" aria-expanded="false" aria-controls="descripcion">
+                                Descripcion
+                            </a>
+                        </p>
+                        <div class="collapse" id="descripcion{{this.idProduct}}">
+                            <div class="card card-body">
+                                <p class="card-text">{{this.description}}</p>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-0">
+                    <div class="col-10">
+                        <a class="btn btn-success" data-bs-toggle="collapse" href="#cantidad{{this.idProduct}}" role="button" aria-expanded="false" aria-controls="descripcion">
+                            <i class="fas fa-shopping-cart"></i> Agregar Carrito
+                        </a>
+                    </div>
+                    
+                    <div class="collapse" id="cantidad{{this.idProduct}}">
+                        <div class="card card-body mx-5">
+                            <form class="row g-3" method="POST" action="/cliente/add">
+                                <div class="col-md-10 my-2">
+                                    <label for="cant" class="form-label detalles">Cantidad</label>
+                                    <input type="number" name="cant" class="form-control titulo" id="cant" value="1">
+                                    <input type="hidden" name="id" value="{{this.idProduct}}">
+                                </div>
+                                <div class="col-10">
+                                    <button type="submit" class="btn btn-primary">Agregar</button>
+                                </div>
+                            </form>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/each}} 
+    </div>   
+</div>

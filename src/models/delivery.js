@@ -3,26 +3,15 @@ const helpers = require('../config/helpers')
 
 const model = {}
 
-model.get = async() => {
-    data = await pool.query('select * from usuario')
-    return data
-}
-model.getName = async(id) => {
-    data = await pool.query('select name from usuario where idUser = ?',[id])
+model.getPedidos = async() => {
+    data = await pool.query('select * from venta')
     return data
 }
 model.find = async(idUser) => {
     data = await pool.query('select * from usuario where idUser = ?',[idUser])
     return data
 }
-model.getPhoto = async (idUser) => {
-    data = await pool.query('select photo from usuario where idUser = ?', [idUser]);
-    return data;
-}
-model.getPhone = async (idUser) => {
-    data = await pool.query('select phone from usuario where idUser = ?', [idUser]);
-    return data;
-}
+
 model.findByName = async(name) => {
     data = await pool.query('select * from usuario where name = ?', [name]);
     return data;

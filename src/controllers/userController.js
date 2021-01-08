@@ -7,8 +7,9 @@ controller.list = async (req, res) => {
     console.log(admins)
 }
 
-controller.showProduct = async (req, res) => {
-
+controller.getName = async (id) => {
+    const data = await model.getName(id)
+    return data
 }
 
 controller.insertBusiness = async (req, res) => {
@@ -29,7 +30,6 @@ controller.insertBusiness = async (req, res) => {
     }
 }
 controller.insertDelivery = async (req, res) => {
-    console.log(req.body)
     const {user, pass, name, photo, phone,rol} = req.body
     const newDelivery = {user, pass, name, photo, phone, rol}
     try{

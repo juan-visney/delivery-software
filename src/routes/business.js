@@ -5,8 +5,7 @@ const userController = require('../controllers/userController')
 const userModel = require('../models/user')
 const productModel = require('../models/producto')
 const productController = require('../controllers/productoController')
-const session = require('express-session');
-const multer = require('../config/multer')
+const session = require('express-session')
 
 function esEmpresa(req, res, next){
     if(req.user.rol == 'empresa'){
@@ -16,7 +15,9 @@ function esEmpresa(req, res, next){
         res.redirect('/')
     }
 }
-
+router.get('/perfil', estaLogueado, esEmpresa, (req, res) => {
+    res.render('./empresa/perfil')
+})
 router.get('/', estaLogueado, esEmpresa, async (req, res) => {
     const id = session.user.idUser
     

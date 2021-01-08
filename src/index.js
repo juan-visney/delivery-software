@@ -12,7 +12,6 @@ const passport = require('passport')
 //init
 const app = express()
 require('./config/passport')
-//require('./config/passportClient')
 
 //settings
 app.set('port', process.env.PORT || 3000)
@@ -54,6 +53,8 @@ app.use((req, res, next) => {
 app.use(require('./routes/public'))
 app.use(require('./routes/authentication'))
 app.use('/empresa', require('./routes/business'))
+app.use('/cliente', require('./routes/client'))
+app.use('/delivery', require('./routes/delivery'))
 
 //public
 app.use(express.static(path.join(__dirname, 'public')))

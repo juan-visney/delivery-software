@@ -6,7 +6,6 @@ controller.showProduct = async (req, res) => {
 }
 
 controller.insertProduct = async (req, res) => {
-    console.log(req.body)
     const {name, idBusiness, quantity, price, description, photo} = req.body
     const newProduct = {name, idBusiness, quantity, price, description, photo}
     try{

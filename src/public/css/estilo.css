@@ -22,16 +22,9 @@
 
 
 
-/*
-*
-* ==========================================
-* FOR DEMO PURPOSES
-* ==========================================
-*
-*/
-
 body {
     min-height: 100vh;
+    background-color: rgba(213, 255, 255, 0.1);
 }
 
 .form-control:not(select) {
@@ -50,4 +43,30 @@ select.form-control {
 }
 .form-control:focus {
     box-shadow: none;
+}
+
+.tarjeta{
+    background-color: rgba(114, 94, 125, 0.1);
+}
+
+.titulo{
+    font-family: 'Indie Flower', cursive;
+    font-family: 'Permanent Marker', cursive;
+    font-family: 'Redressed', cursive;
+}
+.detalles{
+    font-family: 'Indie Flower', cursive;
+font-family: 'Merienda', cursive;
+font-family: 'Permanent Marker', cursive;
+font-family: 'Redressed', cursive;
+}
+.datos{
+    font-family: 'Indie Flower', cursive;
+font-family: 'Permanent Marker', cursive;
+font-family: 'Redressed', cursive;
+}
+.titulo-comida{
+    font-family: 'Indie Flower', cursive;
+font-family: 'Permanent Marker', cursive;
+font-family: 'Redressed', cursive;
 }

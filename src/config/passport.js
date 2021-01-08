@@ -2,7 +2,7 @@ const passport = require('passport')
 const localStrategy = require('passport-local').Strategy
 const pool = require('../database')
 const helpers = require('./helpers')
-const adminModel = require('../models/user')
+const model = require('../models/user')
 const session = require('express-session');
 
 passport.use('local.login', new localStrategy({
@@ -10,12 +10,13 @@ passport.use('local.login', new localStrategy({
     passwordField: 'pass',
     passReqToCallback: true
 }, async(req, user, pass, done) => {
-    const row = await adminModel.findByUser(user)
+    const row = await model.findByUser(user)
     if(row.length > 0){
         const usuario = row[0]
         const validPass = await helpers.decrypt(pass, usuario.pass)
         if(validPass){
             session.user = usuario
+            console.log(usuario)
             done(null, usuario, req.flash('success', 'Bienvenido '+usuario.name))
         }
         else{
@@ -44,7 +45,7 @@ passport.use('local.registro', new localStrategy({
             mail: mail,
             rol: rol
         }
-        const result = await adminModel.insert(newAdmin)
+        const result = await model.insert(newAdmin)
         newAdmin.idUser = result.insertId
         session.usuario = newAdmin
         return done(null, newAdmin);
@@ -62,8 +63,9 @@ passport.use('local.registro', new localStrategy({
             phone,
             address
         }
-        const result = await adminModel.insert(newClient)
+        const result = await model.insert(newClient)
         newClient.idUser = result.insertId
+        session.usuario = newClient
         return done(null, newClient);
     }
 }))

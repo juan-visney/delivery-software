@@ -5,7 +5,7 @@
 				<h1>Nuevo producto</h1>
 			</div>
 			<div class="modal-body">
-				<form method="post" action="/empresa/crearMenu" enctype="multipart/form-data">
+				<form method="post" action="/empresa/crearMenu" >
                     <input type="hidden" name="idBusiness" value="{{empresa.idUser}}">
                     <div class="mb-3">
                         <input required type="text" class="form-control" id="name" name="name" placeholder="Nombre producto">
@@ -32,13 +32,16 @@
 		</div>
 	</div>
 </div>
-<div class="col md-10 mx-2  ">
+<div class="col-10 md-10 mx-2 my-2 ">
     <form>
         <div class="row ">
-            <div class="col md-5">        
-                <h2 class="fs-6 text-uppercase text-center fw-bold text-primary">{{empresa.name}}</h2>
+            <div class="col-3 md-3"> 
+                <img src="/fotos/empresa/{{empresa.photo}}" alt="imagen" class="rounded " width="75px" height="75px">
             </div>
-            <div class="col md-5">
+            <div class="col-3 md-3">
+                <h2 class="fs-6 text-uppercase text-center fw-bold text-primary titulo">{{empresa.name}}</h2>
+            </div>
+            <div class="col-3 md-3">
                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#miModal">
                     Crear Menu
                 </button>
@@ -46,16 +49,39 @@
         </div>
     </form>
 </div>
-<div class="container">
+<div class="container my-3">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">  
     {{#each productos}}
-        <div class="card">
-        <div class="card-header">
-            {{this.name}}
+        <div class="card-group">
+            <div class="card mb-3 mx-3 py-2 px-2 tarjeta" style="max-width: 540px;">
+                <div class="row mg-0">
+                    <div class="col md-12">
+                        <h5 class="card-title titulo-comida fs-1">{{this.name}}</h5>
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-md-2">
+                    <div class="col-md-6">
+                        <img src="/fotos/comida/{{this.photo}}" alt="imagen" class="rounded " width="150px" height="150px">
+                    </div>
+                    <div class="row ">
+                        <div class="col mx-2">
+                            <p class="card-title detalles">Precio: </p>
+                            <p class="card-text datos">{{this.price}} Bs.</p>
+                        </div>
+                        <div class="col mx-2">
+                            <p class="card-title detalles">Cantidad: </p>
+                            <p class="card-text datos">{{this.quantity}} Unidades</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-0 my-2">
+                    <div class="col-10 mx-2 text-center">
+                        <a class="btn btn-warning mx-2" href="#" role="button">Editar</a>
+                        <a class="btn btn-danger" href="#" role="button">Borrar</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <h5 class="card-title">Precio: {{this.price}}</h5>
-            <p class="card-text">Cantidad: {{this.quantity}}</p>
-        </div>
-        </div>
-    {{/each}}    
+    {{/each}} 
+    </div>   
 </div>
