@@ -1,11 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const {estaLogueado, noestaLogueado} = require('../config/authentication')
-const userController = require('../controllers/userController')
+const userModel = require('../models/user')
 const deliveryController = require('../controllers/deliveryController')
-const ventaController = require('../controllers/ventaController')
+const productController = require('../controllers/productoController')
 const session = require('express-session')
-const twi = require('../config/twilio')
 
 function esDelivery(req, res, next){
     if(req.user.rol == 'repartidor'){
@@ -15,20 +14,20 @@ function esDelivery(req, res, next){
         res.redirect('/')
     }
 }
-
+router.get('/perfil', estaLogueado, esDelivery, async(req, res) => {
+    const id = session.user.idUser
+    const delivery = await userModel.find(id)
+    const ventas = await productController.getVentasDelivery(delivery[0].idUser)
+    console.log(ventas)
+    res.render('./delivery/perfil',{delivery: delivery[0],ventas})
+})
 router.get('/', estaLogueado, esDelivery, async (req, res) => {
     const pedidos = await deliveryController.getPedido()
     res.render('./delivery/index', {pedidos})
 })
 
-router.post('/anuncio', estaLogueado, esDelivery, async (req, res) => {
-    const nombreDelivery = await userController.getName(session.user.idUser)
-    const number = req.body.numero
-    var mensaje = 'Hola tu pedido ya viene en camino\nLo esta traendo el delivery: '+nombreDelivery[0].name+'\nEl detalle del pedido es el siguiente: \n'
-    mensaje = mensaje + await ventaController.aviso(req.body.idSale)
-    mensaje = mensaje + 'Con un costo total de '+req.body.costo
-    twi.init(number, mensaje)
-    res.redirect('/')
-})
+router.post('/anuncio', estaLogueado, esDelivery, deliveryController.anuncio)
+
+router.post('/pedido', estaLogueado, esDelivery, deliveryController.insertPedido)
 
 module.exports = router

@@ -52,6 +52,7 @@ app.use((req, res, next) => {
 //routes
 app.use(require('./routes/public'))
 app.use(require('./routes/authentication'))
+app.use('/administrador', require('./routes/administrador'))
 app.use('/empresa', require('./routes/business'))
 app.use('/cliente', require('./routes/client'))
 app.use('/delivery', require('./routes/delivery'))

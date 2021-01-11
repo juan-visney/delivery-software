@@ -1,59 +1,73 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="/">Delivery APP</a>
+    {{#if user}}
+      <a class="navbar-brand" 
+      {{#if (esAdmin user)}}
+        href="/administrador/"
+      {{/if}}
+      {{#if (esEmpresa user)}}
+        href="/empresa/"
+      {{/if}}
+      {{#if (esCliente user)}}
+        href="/cliente/"
+      {{/if}}
+      {{#if (esDelivery user)}}
+        href="/delivery/"
+      {{/if}}
+      >Delivery APP</a>
+    {{/if}}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         {{#if user}}
+          <li class="nav-item">
+            <a 
+            {{#if (esAdmin user)}}
+              href="/administrador/perfil"
+            {{/if}}
+            {{#if (esEmpresa user)}}
+              href="/empresa/perfil"
+            {{/if}}
+            {{#if (esCliente user)}}
+              href="/cliente/perfil"
+            {{/if}}
+            {{#if (esDelivery user)}}
+              href="/delivery/perfil"
+            {{/if}} 
+            class="nav-link">Perfil</a>
+          </li>
+          {{#if (esAdmin user)}}
+          
+          <li class="nav-item">
+            <a href="/administrador/solicitudes" class="nav-link">Solicitudes</a>
+          </li>
           <li class="dropdown">
             <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Menu
+              Registro
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="/links">Ver Todo</a>
+              <a class="dropdown-item" href="/registroAdmin">Administrador</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/links/add">Crear Nuevo</a>
+              <a class="dropdown-item" href="/registroBusiness">Empresa</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/registroDeliver">Delivery</a>
             </div>
           </li>
-          <li class="nav-item">
-            <a href="/cliente/perfil" class="nav-link">Perfil</a>
-          </li>
+          {{/if}}
           <li class="nav-item">
             <a href="/salir" class="nav-link">Salir</a>
           </li>
-          <li class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Registro
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="/registroAdmin">Administrador</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/registroBusiness">Empresa</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/registroDeliver">Delivery</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/registroClient">Cliente</a>
-            </div>
-          </li>
         {{else}}
           <li class="nav-item">
-            <a href="/login" class="nav-link">Ingresar</a>
+            <a href="/login" class="nav-link"><i class="fas fa-sign-in-alt"></i> Ingresar</a>
           </li>
-          <li class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Registro
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="/registroAdmin">Administrador</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/registroBusiness">Empresa</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/registroDeliver">Delivery</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/registroClient">Cliente</a>
-            </div>
+          <li class="nav-item">
+            <a href="/registroClient" class="nav-link"><i class="fas fa-user-plus"></i> Registar</a>
+          </li>
+          <li class="nav-item">
+            <a href="/solicitud" class="nav-link"><i class="fas fa-user-plus"></i> Solicitud Empresa</a>
           </li>
         {{/if}}
       </ul>

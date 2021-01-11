@@ -3,7 +3,12 @@ const router = express.Router()
 const passport = require('passport')
 const {estaLogueado, noestaLogueado} = require('../config/authentication')
 const userController = require('../controllers/userController')
+const session = require('express-session')
 
+router.post('/solicitud', noestaLogueado, userController.solicitud)
+router.get('/solicitud', noestaLogueado, (req, res) => {
+    res.render('./authentication/solicitud')
+})
 router.get('/registroAdmin', noestaLogueado, (req, res) => {
     res.render('./authentication/registroAdmin')
 })
@@ -16,8 +21,8 @@ router.get('/registroDeliver', estaLogueado, (req, res) => {
 router.get('/registroClient', noestaLogueado, (req, res) => {
     res.render('./authentication/registroCliente')
 })
-router.post('/registroAdmin', noestaLogueado, passport.authenticate('local.registro', {
-        successRedirect: '/perfilAdmin',
+router.post('/registroAdmin', estaLogueado, passport.authenticate('local.registro', {
+        successRedirect: '/administrador/',
         failureRedirect: '/registroAdmin',
         failureFlash: true
 }))
@@ -31,38 +36,27 @@ router.post('/registroClient', noestaLogueado, passport.authenticate('local.regi
 router.get('/login', noestaLogueado, (req, res) => {
     res.render('./authentication/login')
 })
-router.post('/login', noestaLogueado, (req, res, next) => {
-    if(req.body.rol == 'Administrador'){
-        passport.authenticate('local.login', {
-            successRedirect: '/perfilAdmin',
-            failureRedirect: '/login',
-            failureFlash: true
-        })(req, res, next)
+router.get('/inicio', estaLogueado, (req, res) => {
+    req.flash('success', 'Bienvenido '+session.user.name)
+    if(session.user.rol == 'admin'){
+        res.redirect('/administrador/')
     }
-    else if (req.body.rol == 'Empresa'){
-        passport.authenticate('local.login', {
-            successRedirect: '/empresa/',
-            failureRedirect: '/login',
-            failureFlash: true
-        })(req, res, next)
+    else if(session.user.rol == 'empresa'){
+        res.redirect('/empresa/')
     }
-    else if (req.body.rol == 'Delivery'){
-        passport.authenticate('local.login', {
-            successRedirect: '/delivery/',
-            failureRedirect: '/login',
-            failureFlash: true
-        })(req, res, next)
+    else if(session.user.rol == 'cliente'){
+        res.redirect('/cliente')
     }
-    else if (req.body.rol == 'Cliente'){
-        passport.authenticate('local.login', {
-            successRedirect: '/cliente',
-            failureRedirect: '/login',
-            failureFlash: true
-        })(req, res, next)
+    else if(session.user.rol == 'repartidor'){
+        res.redirect('/delivery/')
     }
 })
-router.get('/perfilAdmin', estaLogueado, (req, res) => {
-    res.render('./administrador/perfil')
+router.post('/login', noestaLogueado, (req, res, next) => {
+    passport.authenticate('local.login',{
+        successRedirect: '/inicio',
+        failureRedirect: '/login',
+        failureFlash: true
+    })(req, res, next)
 })
 router.get('/salir', estaLogueado, (req, res) => {
     req.logOut()

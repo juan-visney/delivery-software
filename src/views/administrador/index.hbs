@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-10">
+        <div class="container">
+            <div class="row ti col-10"> Empresas </div>
+            <div class="row">
+                <div class="container my-3">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">  
+                    {{#each empresa}}
+                        <div class="card-group">
+                            <div class="card mb-3 mx-3 py-2 px-2 tarjeta" style="max-width: 540px;">
+                                <div class="row mg-0">
+                                    <div class="col md-12">
+                                        <h5 class="card-title titulo-comida fs-1">{{this.name}}</h5>
+                                    </div>
+                                </div>
+                                <div class="row row-cols-1 row-cols-md-2">
+                                    <div class="col-md-6">
+                                        <img src="/fotos/empresa/{{this.photo}}" alt="imagen" class="rounded " width="150px" height="150px">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <form action="/administrador/cambiar/{{this.idUser}}" method="POST">
+                                            <p class="titulo"> Estado: {{this.estado}}</p>
+                                            <input type="hidden" name="estado" value="{{this.estado}}">
+                                            <button type="submit" class="btn btn-primary">Cambiar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}} 
+                    </div>   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-10">
+        <div class="container">
+            <div class="row ti col-10"> Delivery </div>
+            <div class="row">
+                <div class="container my-3">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">  
+                    {{#each delivery}}
+                        <div class="card-group">
+                            <div class="card mb-3 mx-3 py-2 px-2 tarjeta" style="max-width: 540px;">
+                                <div class="row mg-0">
+                                    <div class="col md-12">
+                                        <h5 class="card-title titulo-comida fs-1">{{this.name}}</h5>
+                                    </div>
+                                </div>
+                                <div class="row row-cols-1 row-cols-md-2">
+                                    <div class="col-md-6">
+                                        <img src="/fotos/delivery/{{this.photo}}" alt="imagen" class="rounded " width="150px" height="150px">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <form action="/administrador/cambiar/{{this.idUser}}" method="POST">
+                                            <p class="titulo"> Estado: {{this.estado}}</p>
+                                            <button type="submit" class="btn btn-primary">Cambiar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}} 
+                    </div>   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,7 @@
 const twi = {}
 //Both should be environment vars 
-const ACCOUNT_SID = 'AC9e96717a37556d755274ba11a25f1639';
-const AUTH_TOKEN = 'd139e1994f283a8667c6df8a45fdbada';
+const ACCOUNT_SID = 'ACdb6b4c3fc6ac08facce4f564f6a69e6d';
+const AUTH_TOKEN = 'de9eeff217c7087c9e161b4237d4d92e';
 
 const MY_PHONE_NUMBER = 'whatsapp:+14155238886';
 

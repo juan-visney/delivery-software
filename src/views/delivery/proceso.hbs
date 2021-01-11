@@ -1,0 +1,35 @@
+<div class="container">
+        <div class="card p-5">
+            <div class="card-header titulo">
+                <h2>Cliente: {{cliente}}</h2>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Empresa</th>
+                        <th scope="col">Direccion</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                            {{#each detalles}}
+                                <tr>
+                                    <td> {{producto}}</td>
+                                    <td> {{lot}} </td>
+                                    <td> {{name}} </td>
+                                    <td> {{direccion}} </td>
+                                </tr>
+                            {{/each}}
+                    </tbody>
+                </table>
+                <form action="/delivery/pedido" method="POST">
+                    <input type="hidden" name="idSale" value="{{idSale}}">
+                    <input type="hidden" name="idClient" value="{{idCliente}}">
+                    <input type="hidden" name="idDeliver" value="{{idDelivery}}">
+                    <button type="submit" class="btn btn-info">Entregado</button>
+                </form>
+            </div>
+        </div>
+    </div>

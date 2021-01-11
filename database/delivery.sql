@@ -10,10 +10,11 @@ create table usuario(
     mail VARCHAR(50), --admin, empresa
     photo VARCHAR(200), --empresa, repartidor
     phone INT(12), --empresa, cliente, repartidor
-    address VARCHAR(200), --cliente
+    address VARCHAR(200), --empresa, cliente
     rol VARCHAR(100) NOT NULL --admin,empresa,cliente,repartidor
 );
 ALTER TABLE usuario AUTO_INCREMENT = 100;
+ALTER TABLE usuario add COLUMN estado VARCHAR(50);
 
 create table producto(
     idProduct INT(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -26,6 +27,7 @@ create table producto(
 ALTER TABLE producto AUTO_INCREMENT = 100000;
 ALTER TABLE producto ADD COLUMN name VARCHAR(100);
 ALTER TABLE producto ADD COLUMN photo VARCHAR(200);
+ALTER TABLE producto add COLUMN estado VARCHAR(50);
 
 create table detalle(
     idDetail INT(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -44,25 +46,24 @@ create table venta(
     CONSTRAINT fk_usuario FOREIGN KEY (idClient) REFERENCES usuario(idUser)
 );
 ALTER TABLE venta ADD constraint fk_venta FOREIGN KEY (idSale) REFERENCES detalle(idSale);
+ALTER TABLE venta add COLUMN estado VARCHAR(50);
 
-create table pedido(
-    idRequest INT(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL,
-    owner VARCHAR(50) NOT NULL,
-    address VARCHAR(50) NOT NULL,
-    mail VARCHAR(50) NOT NULL,
-    phone INT(10) NOT NULL
-);
-ALTER TABLE pedido AUTO_INCREMENT = 3000000;
-
-
---falta
 create table orden(
     idOrden INT(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     idDeliver INT(10) NOT NULL,
     idSale INT(10) NOT NULL,
-    status VARCHAR(1) NOT NULL,
-    CONSTRAINT fk_repartidor FOREIGN KEY (idDeliver) REFERENCES repartidor(idDeliver),
-    CONSTRAINT fk_orden FOREIGN KEY (idSale) REFERENCES venta(idSale)
+    idClient INT(10) NOT NULL,
+    CONSTRAINT fk_repartidor FOREIGN KEY (idDeliver) REFERENCES usuario(idUser),
+    CONSTRAINT fk_orden FOREIGN KEY (idSale) REFERENCES venta(idSale),
+    constraint fk_cliente FOREIGN KEY (idClient) REFERENCES usuario(idUser)
 );
-ALTER TABLE orden AUTO_INCREMENT = 2000000;
+ALTER TABLE orden AUTO_INCREMENT = 100;
+
+create table solicitud(
+    idSolicitud INT(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    photo VARCHAR(200),
+    phone INT(12),
+    address VARCHAR(200)
+);
+ALTER TABLE solicitud AUTO_INCREMENT = 100;

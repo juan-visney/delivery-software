@@ -15,16 +15,29 @@ function esEmpresa(req, res, next){
         res.redirect('/')
     }
 }
-router.get('/perfil', estaLogueado, esEmpresa, (req, res) => {
-    res.render('./empresa/perfil')
+router.get('/perfil', estaLogueado, esEmpresa, async(req, res) => {
+    const id = session.user.idUser
+    const empresa = await userModel.find(id)
+    const ventas = await productController.getVentas(empresa[0].idUser)
+    res.render('./empresa/perfil',{empresa: empresa[0],ventas})
 })
+router.post('/editar', estaLogueado, esEmpresa, userController.editarEmpresa)
+
 router.get('/', estaLogueado, esEmpresa, async (req, res) => {
     const id = session.user.idUser
-    
-    const productos = await productModel.find(id);
+    const estado = 'activo'
+    const productos = await productModel.findActivo(id, estado);
     const empresa = await userModel.find(id)
+    empresa[0].idUser = empresa[0].idUser.toString()
+    for(var i=0;i<productos.length;i++){
+        productos[i].idUser = empresa[0].idUser
+    }
+    console.log(empresa[0])
     res.render('./empresa/index', {empresa: empresa[0],productos: productos})
 })
+router.post('/editarMenu/:id', estaLogueado, esEmpresa, productController.editProduct)
+
+router.post('/quitarProducto/:id', estaLogueado, esEmpresa, productController.deleteProduct)
 
 router.post('/crearMenu', estaLogueado, esEmpresa, productController.insertProduct)
 

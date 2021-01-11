@@ -23,6 +23,8 @@
                                     <td> {{this.precio}} </td>
                                     <td>
                                         <form action="/cliente/quitarDetalle/{{this.idDetail}}" method="post">
+                                            <input type="hidden" name="cant" value="{{this.lot}}">
+                                            <input type="hidden" name="name" value="{{this.producto}}">
                                             <button type="submit" class="btn btn-danger">Quitar</button>
                                         </form>
                                     </td>
@@ -88,12 +90,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row g-0">
-                    <div class="col-10 mx-2">
-                        <a href="/cliente/buscar/{{this.empresa}}"><h3 class="carc-text text-primary-bold">{{this.empresa}}</h3></a>
-                    </div>
-                </div>
-                <div class="row g-0">
+                <div class="row g-0 my-2">
                     <div class="col-10 md-10">
                         <p>
                             <a class="btn btn-primary" data-bs-toggle="collapse" href="#descripcion{{this.idProduct}}" role="button" aria-expanded="false" aria-controls="descripcion">
@@ -102,6 +99,7 @@
                         </p>
                         <div class="collapse" id="descripcion{{this.idProduct}}">
                             <div class="card card-body">
+                                <p class="card-tittle ti">{{this.empresa}}</p>
                                 <p class="card-text">{{this.description}}</p>    
                             </div>
                         </div>

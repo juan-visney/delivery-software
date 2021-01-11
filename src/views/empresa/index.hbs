@@ -6,7 +6,7 @@
 			</div>
 			<div class="modal-body">
 				<form method="post" action="/empresa/crearMenu" >
-                    <input type="hidden" name="idBusiness" value="{{empresa.idUser}}">
+                    <input type="hidden" id="idEmpresa" name="idBusiness" value="{{empresa.idUser}}">
                     <div class="mb-3">
                         <input required type="text" class="form-control" id="name" name="name" placeholder="Nombre producto">
                     </div>
@@ -74,10 +74,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="row g-0 my-2">
-                    <div class="col-10 mx-2 text-center">
-                        <a class="btn btn-warning mx-2" href="#" role="button">Editar</a>
-                        <a class="btn btn-danger" href="#" role="button">Borrar</a>
+                <div class="row my-2 cols-sm-1">
+                    <div class="col-5 mx-2 text-center">
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit{{this.idProduct}}">
+                            Editar
+                        </button>
+                    </div>
+                    <div class="col-5 mx-2 text-center">
+                        <form action="/empresa/quitarProducto/{{this.idProduct}}" method="post">
+                            <button class="btn btn-danger" href="" role="submit">Borrar</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -85,3 +91,41 @@
     {{/each}} 
     </div>   
 </div>
+{{#each productos}}
+<div class="modal fade" id="edit{{this.idProduct}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1>Editar Producto</h1>
+			</div>
+			<div class="modal-body">
+				<form method="post" action="/empresa/editarMenu/{{this.idProduct}}" >
+                    <input type="hidden" name="idBusiness" value="{{this.idUser}}">
+                    <input type="hidden" name="estado" value="{{this.estado}}">
+                    <input type="hidden" name="foto" value="{{this.photo}}">
+                    <div class="mb-3">
+                        <input required type="text" class="form-control" id="name" name="name" placeholder="Nombre producto" value="{{this.name}}">
+                    </div>
+                    <div class="mb-3">
+                        <input required type="number" class="form-control" id="quantity" name="quantity" placeholder="Cantidad" value="{{this.quantity}}">
+                    </div>
+                    <div class="mb-3">
+                        <input required type="text" class="form-control" id="description" name="description" placeholder="Descripcion del producto" value="{{this.description}}">
+                    </div>
+                    <div class="mb-3">
+                        <input required type="text" class="form-control" id="price" name="price" placeholder="Precio Unitario" value="{{this.price}}">
+                    </div>
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <input type="file" id="photo" name="photo" value="{{this.photo}}">
+                            </span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Editar</button>
+                </form>
+			</div>
+		</div>
+	</div>
+</div>
+{{/each}}

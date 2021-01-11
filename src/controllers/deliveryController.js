@@ -1,9 +1,12 @@
 const deliveryModel = require('../models/delivery')
 const userModel = require('../models/user')
 const ventaModel = require('../models/venta')
-const productoModel = require('../models/producto')
-const time = require('../config/handlebars')
+const userController = require('../controllers/userController')
+const ventaController = require('../controllers/ventaController')
+const productoController = require('../controllers/productoController')
 const session = require('express-session')
+const twi = require('../config/twilio')
+const model = require('../models/venta')
 const controller = {}
 controller.getPedido = async() => {
     const data = await deliveryModel.getPedidos()
@@ -21,7 +24,6 @@ controller.getPedido = async() => {
         var idSale = obj.idSale.toString()
         data[i].idSale = idSale
     }
-    console.log(data)
     return data
 }
 controller.getDetalle = async() => {
@@ -79,5 +81,43 @@ controller.insertDetalle = async (req, res) => {
 
     }
 }
-
+controller.anuncio = async (req, res) => {
+    const nombreDelivery = await userController.getName(session.user.idUser)
+    const number = parseInt(req.body.numero)
+    var mensaje = 'Hola tu pedido ya viene en camino\nLo esta traendo el delivery: '+nombreDelivery[0].name+'\nEl detalle del pedido es el siguiente: \n'
+    mensaje = mensaje + await ventaController.aviso(req.body.idSale)
+    mensaje = mensaje + 'Con un costo total de '+req.body.costo
+    twi.init(number, mensaje)
+    const idSale = req.body.idSale
+    var usuarios = await userController.usuarios(idSale)
+    for(var i=0;i<usuarios.length;i++){
+        const num = usuarios[i].phone
+        const nombre = usuarios[i].name
+        const idUser = usuarios[i].idUser
+        var mensajeE = 'Empresa '+ nombre + ', el cliente ' + req.body.cliente +  ' solicito \n'+await productoController.getProductos(idUser, idSale) 
+        + 'El delivery: ' + nombreDelivery[0].name + ' vendra a recogerlo\nPorfavor tengalo listo'
+        twi.init(num, mensajeE)
+    }
+    console.log(req.body.cliente)           
+    var user = await userModel.findByName(req.body.cliente)
+    console.log(user)
+    const idCliente = user[0].idUser
+    const idDelivery = session.user.idUser
+    await deliveryModel.enProceso(idSale)
+    var detalles = await ventaModel.getById1(idSale)
+    for(var i = 0 ; i < detalles.length ; i++){
+        const empresa = await ventaModel.getDetalles(detalles[i].idProduct)
+        detalles[i].direccion = empresa[0].dir
+        detalles[i].name = empresa[0].name
+        detalles[i].producto = empresa[0].prod
+    }
+    res.render('./delivery/proceso', {idSale, idCliente, idDelivery, cliente: req.body.cliente, detalles: detalles})
+}
+controller.insertPedido = async (req, res) => {
+    const{idSale, idClient, idDeliver} = req.body
+    const pedido = {idSale, idClient, idDeliver}
+    await ventaModel.insertPedido(pedido)
+    req.flash('success', 'Bien hecho, entregaste un pedido')
+    res.redirect('/delivery/')
+}
 module.exports = controller

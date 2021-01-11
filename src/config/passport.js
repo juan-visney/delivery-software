@@ -13,14 +13,18 @@ passport.use('local.login', new localStrategy({
     const row = await model.findByUser(user)
     if(row.length > 0){
         const usuario = row[0]
-        const validPass = await helpers.decrypt(pass, usuario.pass)
-        if(validPass){
-            session.user = usuario
-            console.log(usuario)
-            done(null, usuario, req.flash('success', 'Bienvenido '+usuario.name))
+        if(usuario.estado == 'activo'){
+            const validPass = await helpers.decrypt(pass, usuario.pass)
+            if(validPass){
+                session.user = usuario
+                done(null, usuario)
+            }
+            else{
+                done(null, false, req.flash('message', 'Error en la contraseña'))
+            }
         }
         else{
-            done(null, false, req.flash('message', 'Error en la contraseña'))
+            done(null, false, req.flash('message', 'Esta bloqueado temporalmente, comuniquese con el administrador'))
         }
     }
     else{
@@ -33,21 +37,22 @@ passport.use('local.registro', new localStrategy({
     passwordField: 'pass',
     passReqToCallback: true
 }, async (req, user, pass, done) => {
-    console.log(req.body)
     if(req.body.rol == 'admin'){
         const name = req.body.name
         const mail = req.body.mail
         const rol = req.body.rol
+        const estado = 'activo'
         const newAdmin = {
             user: user,
             pass: pass,
             name: name,
             mail: mail,
-            rol: rol
+            rol: rol, 
+            estado
         }
         const result = await model.insert(newAdmin)
         newAdmin.idUser = result.insertId
-        session.usuario = newAdmin
+        session.user = newAdmin
         return done(null, newAdmin);
     }
     if(req.body.rol == 'cliente'){
@@ -55,17 +60,19 @@ passport.use('local.registro', new localStrategy({
         const rol = req.body.rol
         const phone = req.body.phone
         const address = req.body.address
+        const estado = 'activo'
         const newClient = {
             user: user,
             pass: pass,
             name: name,
             rol: rol,
             phone,
-            address
+            address, 
+            estado
         }
         const result = await model.insert(newClient)
         newClient.idUser = result.insertId
-        session.usuario = newClient
+        session.user = newClient
         return done(null, newClient);
     }
 }))

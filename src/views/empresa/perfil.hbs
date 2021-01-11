@@ -1,1 +1,154 @@
-<h1>empresa</h1>
+<div class="modal fade" id="editEmpresa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="col-md-10 col-lg-12 ml-auto modal-content">
+            <form action="/empresa/editar" method="POST">
+                <div class="row">
+                    <input type="hidden" name="rol" value="empresa">
+
+                    <div class="input-group col-lg-12 mb-4 text-center">
+                        <p class="ti">Editar Datos</p>
+                    </div>
+
+                    <!-- Name -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fas fa-laptop-house"></i>
+                            </span>
+                        </div>
+                        <input required id="name" type="text" value="{{empresa.name}}" name="name" placeholder="Nombre Empresa" class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    <!-- Address -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-envelope text-muted"></i>
+                            </span>
+                        </div>
+                        <input required id="address" value="{{empresa.address}}" type="text" name="address" placeholder="Domicilio" class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    <!-- phone -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fas fa-mobile-alt"></i>
+                            </span>
+                        </div>
+                        <input required id="phone" type="number" name="phone" value="{{empresa.phone}}" placeholder="Numero Celular" class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    <!-- photo -->
+                        <div class="input-group col-lg-12 mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                    <i class="fas fa-camera-retro"></i>
+                                    <label for="photo" class="mx-2"></label>
+                                    <input type="file" id="photo" name="photo">
+                                </span>
+                            </div>
+                        </div>
+                    <!-- user -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="far fa-user-circle"></i>
+                            </span>
+                        </div>
+                        <input required id="user" type="text" name="user" value="{{empresa.user}}" placeholder="Nombre de Usuario" class="form-control bg-white border-left-0 border-md">
+                    </div>
+                    <input type="hidden" name="foto" value="{{empresa.photo}}">
+                    <!-- password -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fas fa-user-lock"></i>
+                            </span>
+                        </div>
+                        <input required id="pass" type="password" name="pass" placeholder="Contraseña" class="form-control bg-white border-left-0 border-md">
+                    </div>
+                    <input type="hidden" name="idUser" value="{{empresa.idUser}}" id="">
+
+                    <!-- Submit Button -->
+                    <div class="form-group col-lg-12 mx-auto mb-0">
+                        <button type="submit" class="btn btn-primary btn-block py-2" >
+                            <span class="font-weight-bold">Actualizar</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+	</div>
+</div>
+        
+
+<div class="row">
+    <div class="col-10">
+        <div class="container">
+            <div class="row ti col-10"> Informacion perfil </div>
+            <div class="row">
+                <div class="container my-3">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">  
+                        <div class="card-group">
+                            <div class="card mb-3 mx-3 py-2 px-2 tarjeta" style="max-width: 540px;">
+                                <div class="row mg-0">
+                                    <div class="col md-12">
+                                        <h5 class="card-title titulo-comida fs-1"> {{empresa.name}} </h5>
+                                    </div>
+                                </div>
+                                <div class="row row-cols-1 row-cols-md-2">
+                                    <div class="col-md-6">
+                                        <img src="/fotos/empresa/{{empresa.photo}}" alt="imagen" class="rounded " width="150px" height="150px">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <form action="" method="POST">
+                                            <p class="titulo"> Estado: {{empresa.estado}}</p>
+                                            <p class="titulo"> Telefono: {{empresa.phone}}</p>
+                                            <p class="titulo"> Direccion: {{empresa.address}}</p>
+                                            <input type="hidden" name="estado" value="{{empresa.idUser}}">
+                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editEmpresa">
+                                                Editar
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card p-5">
+            <div class="card-header">
+                <h2>Lista de Pedidos</h2>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Costo</th>
+                        <th scope="col">Fecha</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                            {{#each ventas}}
+                                <tr>
+                                    <td> {{this.cliente}} </td>
+                                    <td> {{this.producto}} </td>
+                                    <td> {{this.cant}} </td>
+                                    <td> {{this.costo}}</td>
+                                    <td> {{this.fecha}}</td>
+                                </tr>
+                            {{/each}}
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
